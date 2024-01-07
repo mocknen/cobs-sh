@@ -1,0 +1,43 @@
+#+title: cobs.sh
+
+Shell functions to (en|de)code bytes with [[https://en.wikipedia.org/wiki/Consistent_Overhead_Byte_Stuffing][Consistent Overhead Byte Stuffing]] (COBS).
+
+* Prerequisites
+
+This script works only with [[https://zsh.sourceforge.io/][zsh]].
+
+#+begin_src sh
+  $SHELL --version
+#+end_src
+
+#+begin_example
+  zsh 5.9 (x86_64-pc-linux-gnu)
+#+end_example
+
+Source the script file.
+
+#+begin_src sh
+  source cobs.sh
+#+end_src
+
+* Examples
+
+** Encode
+
+#+begin_src sh
+  cobs_encode $'\x11\x22\x00\x33' | od -An -tx1
+#+end_src
+
+#+begin_example
+  03 11 22 02 33
+#+end_example
+
+** Decode
+
+#+begin_src sh
+  cobs_decode $'\x03\x11\x22\x02\x33' | od -An -tx1
+#+end_src
+
+#+begin_example
+  11 22 00 33
+#+end_example
